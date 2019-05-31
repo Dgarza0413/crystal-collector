@@ -1,0 +1,2 @@
+# crystalcollector
+A game that provides a random number at the start of the game. There are four boxes below. By clicking on a box you will add a total sum of points to a total score. The game is won when the player matching the total score to the random number. you lose the game if the total score goes above the random number. Each box has a hidden number until clicked on. Each time the game starts the values of each box with change in value.

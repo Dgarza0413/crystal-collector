@@ -59,7 +59,7 @@
     //four boxes will use on click functions to contribute their assignmed values
     //the four boxes will be generated via for loops
     var gameState
-    var userScore
+    var userScore = parseFloat(0);
     var goalScore = (Math.floor(Math.random() * 10) + 1)
 
     //set goalscore
@@ -97,14 +97,15 @@
 
     //on click function to add crystal box random number to sumCounter
     //add to userscore when clicked
+    //need to treat userScore like a number
+    //concatenates them instead
+    //use parseInt??
     $(".crystal-box").on("click", function () {
-        var userScore = parseInt(5)
-        var randomNumber = parseInt(Math.floor(Math.random() * 10) + 1);
-
+        var total = parseInt(userScore)
         gameEnd()
-        // $("#user-score-display").text(userScore += $(this).attr("random-number"))
-        $("#user-score-display").text(userScore += randomNumber)
-        console.log(userScore)
+        $("#user-score-display").text(total += $(this).attr("random-number"));
+        console.log("user score: " + userScore)
+        console.log("total score: " + total)
     })
 
 
@@ -112,3 +113,24 @@
 </script>
 
 </html>
+
+
+<!-- Adding strings concatenates them:
+
+> "1" + "1"
+"11"
+You have to parse them into numbers first:
+
+/* parseFloat is used here. 
+ * Because of it's not known that 
+ * whether the number has fractional places.
+ */
+
+var a = parseFloat($('#a').val()),
+    b = parseFloat($('#b').val());
+Also, you have to get the values from inside of the click handler:
+
+$("submit").on("click", function() {
+   var a = parseInt($('#a').val(), 10),
+       b = parseInt($('#b').val(), 10);
+}); -->

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <title>Crystal Collector</title>
+</head>
+
+<style>
+    .crystal-box {
+        width: 100px;
+        height: 100px;
+        margin: 30px;
+        padding: 30px;
+        background-color: grey;
+
+    }
+
+    #box-display {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    /* #user-score-display {
+        height: 60px;
+        margin: 30px;
+        background-color: grey;
+    }
+
+    #goal-score-display {
+        height: 60px;
+        margin: 30px;
+        background-color: grey;
+    } */
+</style>
+
+<body>
+
+    <div class="hud">goal score <span id="goal-score-display"></span></div>
+    <div class="hud">user score <span id="user-score-display"></span></div>
+    <div id="box-display"></div>
+
+
+
+</body>
+
+
+<script>
+    //four boxes will use on click functions to contribute their assignmed values
+    //the four boxes will be generated via for loops
+
+    var goalScore = (Math.floor(Math.random() * 10) + 1)
+    $("#goal-score-display").text(goalScore)
+    var userScore = 0
+
+    for (var i = 0; i < 4; i++) {
+        var randomNumber = (Math.floor(Math.random() + 10) + 1)
+        crystalbox = $("<div>");
+        crystalbox.addClass("crystal-box")
+        crystalbox.attr("random-number", randomNumber)
+        crystalbox.text(Math.floor(Math.random() * 10) + 1);
+        $("#box-display").append(crystalbox)
+    }
+
+
+    //on click function to add crystal box random number to sumCounter
+    $(".crystal-box").on("click", function () {
+        console.log("box has been clicked")
+        console.log(++userScore)
+        $("#user-score-display").text($(this).attr("random-number"))
+    })
+
+
+
+</script>
+
+</html>

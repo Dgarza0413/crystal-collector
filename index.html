@@ -10,6 +10,12 @@
 </head>
 
 <style>
+    .hud {
+        height: 30px;
+        margin: 30px;
+        background-color: grey;
+    }
+
     .crystal-box {
         width: 100px;
         height: 100px;
@@ -52,26 +58,53 @@
 <script>
     //four boxes will use on click functions to contribute their assignmed values
     //the four boxes will be generated via for loops
-
+    var gameState
+    var userScore
     var goalScore = (Math.floor(Math.random() * 10) + 1)
-    $("#goal-score-display").text(goalScore)
-    var userScore = 0
 
-    for (var i = 0; i < 4; i++) {
-        var randomNumber = (Math.floor(Math.random() + 10) + 1)
-        crystalbox = $("<div>");
-        crystalbox.addClass("crystal-box")
-        crystalbox.attr("random-number", randomNumber)
-        crystalbox.text(Math.floor(Math.random() * 10) + 1);
-        $("#box-display").append(crystalbox)
+    //set goalscore
+    $("#goal-score-display").text(goalScore)
+
+    //if function to check win or lose
+    function gameReset() {
+        goalScore = (Math.floor(Math.random() * 10) + 1)
+        userScore = -1
+        gameState
+        $("#goal-score-display").text(goalScore)
+    }
+
+    function gameEnd() {
+        if (userScore === (goalScore)) {
+            console.log("you win")
+            return gameReset()
+        } else if ((userScore > (goalScore))) {
+            console.log("you lose")
+            return gameReset()
+        }
     }
 
 
+
+    //for loop to generate four boxes with populated randomnumbers
+    for (var i = 0; i < 4; i++) {
+        var randomNumber = (Math.floor(Math.random() * 10) + 1);
+        crystalbox = $("<div>");
+        crystalbox.addClass("crystal-box")
+        crystalbox.attr("random-number", randomNumber)
+        crystalbox.text(randomNumber);
+        $("#box-display").append(crystalbox)
+    }
+
     //on click function to add crystal box random number to sumCounter
+    //add to userscore when clicked
     $(".crystal-box").on("click", function () {
-        console.log("box has been clicked")
-        console.log(++userScore)
-        $("#user-score-display").text($(this).attr("random-number"))
+        var userScore = parseInt(5)
+        var randomNumber = parseInt(Math.floor(Math.random() * 10) + 1);
+
+        gameEnd()
+        // $("#user-score-display").text(userScore += $(this).attr("random-number"))
+        $("#user-score-display").text(userScore += randomNumber)
+        console.log(userScore)
     })
 
 

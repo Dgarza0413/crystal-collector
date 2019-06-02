@@ -5,42 +5,62 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+HK:400,700&display=swap" rel="stylesheet">
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <title>Crystal Collector</title>
 </head>
 
 <style>
-    @keyframes changeNumber {
-        0% {
-            content: this number;
-        }
-
-        50% {
-            color: white;
-        }
-
-        100% {
-            content: next number;
-        }
+    body {
+        font-family: 'Noto Sans HK', sans-serif;
     }
 
     button {
         height: 100px;
         width: 100px;
-        margin: 30px;
+        /* margin: 30px; */
         padding: 30px;
         background-color: grey;
+        z-index: 1;
+        opacity: 0;
+    }
+
+    img {
+        position: absolute;
+        width: 100px;
+        height: 100px;
+        /* padding: 30px; */
+        top: 0;
+        z-index: -1;
     }
 
     h1 {
+        padding: 10px;
+        margin: 0;
         text-align: center;
+        font-weight: 700;
+        font-size: 40px;
+        color: #AF98B4;
+        background-color: #8D6B94;
+    }
+
+    p {
+        text-align: justify;
+    }
+
+    span {
+        font-size: 30px;
     }
 
     .hud {
         margin: 30px;
         padding: 30px;
-        background-color: grey;
+        background-color: #B185A7;
         text-align: center;
+    }
+
+    .hud-group {
+        display: flex;
     }
 
     .crystal-box {
@@ -48,11 +68,20 @@
         height: 100px;
         margin: 30px;
         padding: 30px;
-        background-color: grey;
+        /* background-color: grey; */
     }
 
     .win-lose-display {
         display: inherit;
+        justify-content: space-evenly;
+    }
+
+    .image-overlay {
+        position: relative;
+    }
+
+    .title {
+        width: 100%;
     }
 
     .flex-container {
@@ -64,6 +93,7 @@
     .flex-row {
         display: flex;
         flex-direction: column;
+        margin: 0% 5%;
     }
 
     .flex-column {
@@ -73,24 +103,26 @@
 
     #box-display {
         display: flex;
-        justify-content: center;
+        justify-content: space-around;
         flex-wrap: wrap;
-
     }
 </style>
 
 <body>
 
-    <h1>Coin Collector</h1>
-    <div class="hud"><span id="msg-display"></span></div>
+    <h1>Crystal Collector</h1>
 
-    <div class="flex-container">
+    <div class="flex-container" style="margin: 5% 5% 0% 5%;">
         <div class="flex-row">
             <div class="flex-container">
                 <div class="flex-column">
                     <div class="how-to-play">
-                        <h3>How to Play</h3>
-                        <p>This is the paragraph on how to play</p>
+                        <h1>How to Play</h1>
+                        <p>A game that provides a random number at the start of the game. There are four boxes below. By
+                            clicking on a box you will add a total sum of points to a total score. The game is won when
+                            the player matching the total score to the random number. you lose the game if the total
+                            score goes above the random number. Each box has a hidden number until clicked on. Each time
+                            the game starts the values of each box with change in value.</p>
                     </div>
                     <div class="win-lose-display">
                         <div class="hud">
@@ -105,24 +137,50 @@
         </div>
         <div class="flex-row">
             <div class="flex-container">
-                <div class="hud">
-                    <h3>Goal Score</h3><span id="goal-score-display"></span>
-                </div>
-                <div class="hud">
-                    <h3>User Score</h3><span id="user-score-display"></span>
+                <div class="title">
+                    <h1>HUD</h1>
+                    <div class="hud-group">
+                        <div class="hud">
+                            <h3>Goal Score</h3><span id="goal-score-display"></span>
+                        </div>
+                        <div class="hud">
+                            <h3>User Score</h3><span id="user-score-display"></span>
+                        </div>
+                        <div onclick="gameReset()" class="hud">
+                            <h3>Game Reset</h3>
+                        </div>
+                    </div>
+                    <h1> <span id="msg-display"></span></h1>
                 </div>
             </div>
-
             <div class="flex-container">
-                <div id="box-display">
-                    <button><img src="" alt=""></button>
-                    <button><img src="" alt=""></button>
-                    <button><img src="" alt=""></button>
-                    <button><img src="" alt=""></button>
+                <div class="title">
+                    <h1>Crystal selection</h1>
+                    <div id="box-display">
+                        <div class="image-overlay">
+                            <button></button>
+                            <img src="assets/red-rupee.png" alt="">
+                        </div>
+                        <div class="image-overlay">
+                            <button></button>
+                            <img src="assets/green-rupee.png" alt="">
+                        </div>
+                        <div class="image-overlay">
+                            <button></button>
+                            <img src="assets/blue-rupee.png" alt="">
+                        </div>
+                        <div class="image-overlay">
+                            <button></button>
+                            <img src="assets/yellow-rupee.png" alt="">
+                        </div>
+
+                        <!-- <button><img src="" alt=""></button>
+                        <button><img src="" alt=""></button>
+                        <button><img src="" alt=""></button> -->
+                    </div>
                 </div>
             </div>
         </div>
-        <div onclick="gameReset()">reset</div>
     </div>
 
 </body>
@@ -167,11 +225,12 @@
     // using this routing is better for setting unique img for the buttons
     function randomNumGen() {
         $("button").each(function () {
+            // console.log(imgsrc);
             var crystalNumber = (Math.floor(Math.random() * 12) + 1);
             //use keyword this to refer to the object of button
             $(this).attr("random-value", crystalNumber)
+            $(this).append("img", $(this).attr("src"))
             $(this).text(crystalNumber)
-            console.log("random-value")
         })
     }
     $("#goal-score-display").text(goalScore)

@@ -10,6 +10,14 @@
 </head>
 
 <style>
+    button {
+        height: 100px;
+        width: 100px;
+        margin: 30px;
+        padding: 30px;
+        background-color: blue;
+    }
+
     .hud {
         height: 30px;
         margin: 30px;
@@ -22,7 +30,6 @@
         margin: 30px;
         padding: 30px;
         background-color: grey;
-
     }
 
     #box-display {
@@ -30,27 +37,18 @@
         flex-direction: row;
         justify-content: center;
     }
-
-    /* #user-score-display {
-        height: 60px;
-        margin: 30px;
-        background-color: grey;
-    }
-
-    #goal-score-display {
-        height: 60px;
-        margin: 30px;
-        background-color: grey;
-    } */
 </style>
 
 <body>
 
     <div class="hud">goal score <span id="goal-score-display"></span></div>
     <div class="hud">user score <span id="user-score-display"></span></div>
-    <div id="box-display"></div>
-
-
+    <div id="box-display">
+        <button><img src="" alt=""></button>
+        <button><img src="" alt=""></button>
+        <button><img src="" alt=""></button>
+        <button><img src="" alt=""></button>
+    </div>
 
 </body>
 
@@ -58,12 +56,11 @@
 <script>
     //four boxes will use on click functions to contribute their assignmed values
     //the four boxes will be generated via for loops
-    var gameState
-    var userScore = parseFloat(0);
-    var goalScore = (Math.floor(Math.random() * 10) + 1)
 
+    var gameState
+    var userScore = 0;
+    var goalScore = (Math.floor(Math.random() * 10) + 1)
     //set goalscore
-    $("#goal-score-display").text(goalScore)
 
     //if function to check win or lose
     function gameReset() {
@@ -82,34 +79,56 @@
             return gameReset()
         }
     }
+    // using for each to set a random number on all buttons
+    // using this routing is better for setting unique img for the buttons
+    $("button").each(function () {
+        var crystalNumber = $(this).text(Math.floor(Math.random() * 12) + 1)
+    })
+
+    //this on click will use the button's number to update the userScore
+    //click checks if game has won or loss
+    $("button").on("click", function () {
+        var crystalNum = $("button").val()
+        var crystalInt = parseInt(crystalNum)
+        //does it meet the conditions?
+        gameEnd()
+        $("#user-score-display").val(crystalInt)
+        console.log("This button has been clicked and has" + userScore)
+    })
+
+
+
 
 
 
     //for loop to generate four boxes with populated randomnumbers
-    for (var i = 0; i < 4; i++) {
-        var randomNumber = (Math.floor(Math.random() * 10) + 1);
-        crystalbox = $("<div>");
-        crystalbox.addClass("crystal-box")
-        crystalbox.attr("random-number", randomNumber)
-        crystalbox.text(randomNumber);
-        $("#box-display").append(crystalbox)
-    }
+    // for (var i = 0; i < 4; i++) {
+    //     var goalScore = (Math.floor(Math.random() * 10) + 1)
+    //     var randomNumber = (Math.floor(Math.random() * 10) + 1);
+    //     // crystalbox = $("<div>");
+    //     $("button").text(Math)
+    //     crystalbox.addClass("crystal-box")
+    //     crystalbox.attr("random-number", randomNumber)
+    //     crystalbox.text(randomNumber);
+    //     $("#box-display").append(crystalbox)
+    // }
+
+    $("#goal-score-display").text(goalScore)
 
     //on click function to add crystal box random number to sumCounter
     //add to userscore when clicked
     //need to treat userScore like a number
     //concatenates them instead
     //use parseInt??
-    $(".crystal-box").on("click", function () {
-        var total = parseInt(userScore)
-        gameEnd()
-        $("#user-score-display").text(total += $(this).attr("random-number"));
-        console.log("user score: " + userScore)
-        console.log("total score: " + total)
-    })
-
-
-
+    // $(".crystal-box").on("click", function () {
+    //     // var userScore = $("#user-score-display").val();
+    //     // var crystalNumber = $(".crystal-box").val();
+    //     // var total = parseInt(userScore) + parseInt(crystalNumber)
+    //     var userNumber = parseInt(userScore.val(), 0)
+    //     gameEnd()
+    //     $("#user-score-display").text(userNumber += $(this).attr("random-number"));
+    //     console.log("user score: " + userScore)
+    // })
 </script>
 
 </html>

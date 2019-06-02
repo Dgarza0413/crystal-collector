@@ -38,38 +38,45 @@
         justify-content: center;
     }
 
+    .flex-row {
+        display: flex;
+        flex-direction: column;
+    }
+
     #box-display {
         display: flex;
-        flex-direction: row;
         justify-content: center;
     }
 </style>
 
 <body>
     <div class="hud">Message: <span id="msg-display"></span></div>
-    <div class="flex-container">
-        <div class="hud">
-            <h3>Wins</h3><span id="win-score-display"></span>
-        </div>
-        <div class="hud">
-            <h3>Lose</h3><span id="lose-score-display"></span>
-        </div>
-    </div>
 
     <div class="flex-container">
-        <div class="hud">
-            <h3>Goal Score</h3><span id="goal-score-display"></span>
-        </div>
-        <div class="hud">
-            <h3>User Score</h3><span id="user-score-display"></span>
-        </div>
-    </div>
 
-    <div id="box-display">
-        <button><img src="" alt=""></button>
-        <button><img src="" alt=""></button>
-        <button><img src="" alt=""></button>
-        <button><img src="" alt=""></button>
+    </div>
+    <div class="flex-row">
+
+        <div class="flex-container">
+            <div class="hud">
+                <h3>Goal Score</h3><span id="goal-score-display"></span>
+            </div>
+            <div class="hud">
+                <h3>User Score</h3><span id="user-score-display"></span>
+            </div>
+            <div class="hud">
+                <h3>Wins</h3><span id="win-score-display"></span>
+            </div>
+            <div class="hud">
+                <h3>Lose</h3><span id="lose-score-display"></span>
+            </div>
+        </div>
+        <div id="box-display">
+            <button><img src="" alt=""></button>
+            <button><img src="" alt=""></button>
+            <button><img src="" alt=""></button>
+            <button><img src="" alt=""></button>
+        </div>
     </div>
     <div onclick="gameReset()">reset</div>
 
@@ -82,55 +89,60 @@
 
     //initial scores
     var userScore = 0;
-    var goalScore = (Math.floor(Math.random() * 100) + 29)
+    var goalScore = (Math.floor(Math.random() * 120) + 19)
+
     //win loss counters
     var winScore = 0;
     var loseScore = 0;
 
-
-    //if function to check win or lose
+    //function to reset all values
     function gameReset() {
         userScore = 0
-        goalScore = (Math.floor(Math.random() * 100) + 29);
+        goalScore = (Math.floor(Math.random() * 120) + 19);
         $("#goal-score-display").text(goalScore)
         $("#user-score-display").text(userScore)
     }
 
+    //if function to check win or lose
     function gameEnd() {
         if (userScore === (goalScore)) {
             console.log("you win")
             $("#win-score-display").text(++winScore)
             $("#msg-display").text("YOU WIN")
-            return gameReset()
+            return gameReset(), randomNumGen()
         } else if ((userScore > goalScore)) {
-            $("#lose-score-display").text(++winScore)
+            $("#lose-score-display").text(++loseScore)
             $("#msg-display").text("YOU LOSE")
             console.log("you lose")
-            return gameReset()
+            return gameReset(), randomNumGen()
         }
     }
     // using for each to set a random number on all buttons
     // using this routing is better for setting unique img for the buttons
-    $("button").each(function () {
-        var crystalNumber = (Math.floor(Math.random() * 12) + 1);
-        //use keyword this to refer to the object of button
-        $(this).attr("random-value", crystalNumber)
-        $(this).text(crystalNumber)
-        console.log("random-value")
-    })
-
+    function randomNumGen() {
+        $("button").each(function () {
+            var crystalNumber = (Math.floor(Math.random() * 12) + 1);
+            //use keyword this to refer to the object of button
+            $(this).attr("random-value", crystalNumber)
+            $(this).text(crystalNumber)
+            console.log("random-value")
+        })
+    }
     $("#goal-score-display").text(goalScore)
 
     //this on click will use the button's number to update the userScore
     //click checks if game has won or loss
     $("button").on("click", function () {
         var randomvalue = parseInt($(this).attr("random-value"))
-        //does it meet the conditions?
         userScore = Number(userScore) + Number(randomvalue)
+        //Update score and clear msg
         $("#user-score-display").text(userScore)
-        //after
+        $("#msg-display").text("")
+        //does it meet the conditions?
         gameEnd()
     })
+
+    randomNumGen();
 
     //for loop to generate four boxes with populated randomnumbers
     // for (var i = 0; i < 4; i++) {

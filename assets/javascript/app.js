@@ -35,6 +35,7 @@ function gameEnd() {
         return gameReset(), randomNumGen()
     }
 }
+
 // using for each to set a random number on all buttons
 // using this routing is better for setting unique img for the buttons
 function randomNumGen() {

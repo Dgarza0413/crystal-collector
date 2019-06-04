@@ -1,0 +1,95 @@
+   body {
+        font-family: 'Noto Sans HK', sans-serif;
+    }
+
+    button {
+        height: 100px;
+        width: 100px;
+        /* margin: 30px; */
+        padding: 30px;
+        background-color: grey;
+        z-index: 1;
+        opacity: 0;
+    }
+
+    img {
+        position: absolute;
+        width: 100px;
+        height: 100px;
+        /* padding: 30px; */
+        top: 0;
+        z-index: -1;
+    }
+
+    h1 {
+        padding: 10px;
+        margin: 0;
+        text-align: center;
+        font-weight: 700;
+        font-size: 40px;
+        color: #AF98B4;
+        background-color: #8D6B94;
+    }
+
+    p {
+        text-align: justify;
+    }
+
+    span {
+        font-size: 30px;
+    }
+
+    .hud {
+        margin: 30px;
+        padding: 30px;
+        background-color: #B185A7;
+        text-align: center;
+    }
+
+    .hud-group {
+        display: flex;
+    }
+
+    .crystal-box {
+        width: 100px;
+        height: 100px;
+        margin: 30px;
+        padding: 30px;
+        /* background-color: grey; */
+    }
+
+    .win-lose-display {
+        display: inherit;
+        justify-content: space-evenly;
+    }
+
+    .image-overlay {
+        position: relative;
+    }
+
+    .title {
+        width: 100%;
+    }
+
+    .flex-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .flex-row {
+        display: flex;
+        flex-direction: column;
+        margin: 0% 5%;
+    }
+
+    .flex-column {
+        display: flex;
+        flex-direction: column;
+    }
+
+    #box-display {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+    }

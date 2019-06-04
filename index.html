@@ -6,107 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans+HK:400,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <title>Crystal Collector</title>
 </head>
-
-<style>
-    body {
-        font-family: 'Noto Sans HK', sans-serif;
-    }
-
-    button {
-        height: 100px;
-        width: 100px;
-        /* margin: 30px; */
-        padding: 30px;
-        background-color: grey;
-        z-index: 1;
-        opacity: 0;
-    }
-
-    img {
-        position: absolute;
-        width: 100px;
-        height: 100px;
-        /* padding: 30px; */
-        top: 0;
-        z-index: -1;
-    }
-
-    h1 {
-        padding: 10px;
-        margin: 0;
-        text-align: center;
-        font-weight: 700;
-        font-size: 40px;
-        color: #AF98B4;
-        background-color: #8D6B94;
-    }
-
-    p {
-        text-align: justify;
-    }
-
-    span {
-        font-size: 30px;
-    }
-
-    .hud {
-        margin: 30px;
-        padding: 30px;
-        background-color: #B185A7;
-        text-align: center;
-    }
-
-    .hud-group {
-        display: flex;
-    }
-
-    .crystal-box {
-        width: 100px;
-        height: 100px;
-        margin: 30px;
-        padding: 30px;
-        /* background-color: grey; */
-    }
-
-    .win-lose-display {
-        display: inherit;
-        justify-content: space-evenly;
-    }
-
-    .image-overlay {
-        position: relative;
-    }
-
-    .title {
-        width: 100%;
-    }
-
-    .flex-container {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-    }
-
-    .flex-row {
-        display: flex;
-        flex-direction: column;
-        margin: 0% 5%;
-    }
-
-    .flex-column {
-        display: flex;
-        flex-direction: column;
-    }
-
-    #box-display {
-        display: flex;
-        justify-content: space-around;
-        flex-wrap: wrap;
-    }
-</style>
 
 <body>
 
@@ -173,10 +76,6 @@
                             <button></button>
                             <img src="assets/yellow-rupee.png" alt="">
                         </div>
-
-                        <!-- <button><img src="" alt=""></button>
-                        <button><img src="" alt=""></button>
-                        <button><img src="" alt=""></button> -->
                     </div>
                 </div>
             </div>
@@ -184,98 +83,6 @@
     </div>
 
 </body>
-
-
-<script>
-    //four boxes will use on click functions to contribute their assignmed values
-    //the four boxes will be generated via for loops
-
-    //initial scores
-    var userScore = 0;
-    var goalScore = (Math.floor(Math.random() * 120) + 19)
-
-    //win loss counters
-    var winScore = 0;
-    var loseScore = 0;
-
-    //function to reset all values
-    function gameReset() {
-        userScore = 0
-        goalScore = (Math.floor(Math.random() * 120) + 19);
-        $("#goal-score-display").text(goalScore)
-        $("#user-score-display").text(userScore)
-        randomNumGen();
-    }
-
-    //if function to check win or lose
-    function gameEnd() {
-        if (userScore === (goalScore)) {
-            console.log("you win")
-            $("#win-score-display").text(++winScore)
-            $("#msg-display").text("YOU WIN")
-            return gameReset(), randomNumGen()
-        } else if ((userScore > goalScore)) {
-            $("#lose-score-display").text(++loseScore)
-            $("#msg-display").text("YOU LOSE")
-            console.log("you lose")
-            return gameReset(), randomNumGen()
-        }
-    }
-    // using for each to set a random number on all buttons
-    // using this routing is better for setting unique img for the buttons
-    function randomNumGen() {
-        $("button").each(function () {
-            // console.log(imgsrc);
-            var crystalNumber = (Math.floor(Math.random() * 12) + 1);
-            //use keyword this to refer to the object of button
-            $(this).attr("random-value", crystalNumber)
-            $(this).append("img", $(this).attr("src"))
-            $(this).text(crystalNumber)
-        })
-    }
-    $("#goal-score-display").text(goalScore)
-
-    //this on click will use the button's number to update the userScore
-    //click checks if game has won or loss
-    $("button").on("click", function () {
-        var randomvalue = parseInt($(this).attr("random-value"))
-        userScore = Number(userScore) + Number(randomvalue)
-        //Update score and clear msg
-        $("#user-score-display").text(userScore)
-        $("#msg-display").text("")
-        //does it meet the conditions?
-        gameEnd()
-    })
-
-    randomNumGen();
-
-    //for loop to generate four boxes with populated randomnumbers
-    // for (var i = 0; i < 4; i++) {
-    //     var goalScore = (Math.floor(Math.random() * 10) + 1)
-    //     var randomNumber = (Math.floor(Math.random() * 10) + 1);
-    //     // crystalbox = $("<div>");
-    //     $("button").text(Math)
-    //     crystalbox.addClass("crystal-box")
-    //     crystalbox.attr("random-number", randomNumber)
-    //     crystalbox.text(randomNumber);
-    //     $("#box-display").append(crystalbox)
-    // }
-
-
-    //on click function to add crystal box random number to sumCounter
-    //add to userscore when clicked
-    //need to treat userScore like a number
-    //concatenates them instead
-    //use parseInt??
-    // $(".crystal-box").on("click", function () {
-    //     // var userScore = $("#user-score-display").val();
-    //     // var crystalNumber = $(".crystal-box").val();
-    //     // var total = parseInt(userScore) + parseInt(crystalNumber)
-    //     var userNumber = parseInt(userScore.val(), 0)
-    //     gameEnd()
-    //     $("#user-score-display").text(userNumber += $(this).attr("random-number"));
-    //     console.log("user score: " + userScore)
-    // })
-</script>
+<script src="assets/javascript/app.js"></script>
 
 </html>

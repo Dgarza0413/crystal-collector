@@ -9,12 +9,6 @@ var goalScore = (Math.floor(Math.random() * 120) + 19)
 var winScore = 0;
 var loseScore = 0;
 
-
-function playRupeeSelect() {
-    var audio = newAudio("assets/audio/rupee-select")
-    audio.play();
-}
-
 //function to reset all values
 function gameReset() {
     userScore = 0
@@ -64,8 +58,8 @@ $("button").on("click", function () {
     //Update score and clear msg
     $("#user-score-display").text(userScore)
     $("#msg-display").text("")
-    //does it meet the conditions?
     gameEnd()
+    //does it meet the conditions?
     audio.play()
 })
 
